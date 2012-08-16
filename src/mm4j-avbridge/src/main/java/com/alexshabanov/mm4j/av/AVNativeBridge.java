@@ -21,13 +21,13 @@ package com.alexshabanov.mm4j.av;
 public final class AVNativeBridge {
     private AVNativeBridge() {}
 
-    public native byte[] initInputFileContext(String name);
+    public static native byte[] initInputFileContext(String name);
 
-    public native void disposeFileContext(byte[] arr);
+    public static native void disposeFileContext(byte[] arr);
 
     static {
         try {
-            System.loadLibrary("libmm4j-avnative");
+            System.loadLibrary("libmm4j-avbridge.so");
         } catch (Throwable e) {
             e.printStackTrace();
             System.exit(1);

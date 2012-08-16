@@ -13,6 +13,8 @@
         <module>mm4j-core</module>
         <module>mm4j-avbridge</module>
         <module>native</module>
+
+        <module>mm4j-sample</module>
     </modules>
 
     <properties>

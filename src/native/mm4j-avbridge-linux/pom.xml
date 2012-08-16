@@ -12,7 +12,7 @@
     <artifactId>mm4j-avbridge-linux</artifactId>
     <version>${mm4j.version}</version>
     <packaging>so</packaging>
-    <name>libmm4j-avnative.so</name>
+    <name>MM4J Bridge Native Library</name>
 
     <dependencies>
         <dependency>
@@ -24,17 +24,21 @@
     </dependencies>
 
     <build>
+        <finalName>libmm4j-avbridge.so</finalName>
+
         <plugins>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native-maven-plugin</artifactId>
+                <version>1.0-alpha-7</version>
                 <extensions>true</extensions>
                 <configuration>
                     <javahOS>linux</javahOS>
 
-                    <!--<compilerProvider>generic-classic</compilerProvider>-->
-                    <!--<linkerExecutable>gcc</linkerExecutable>-->
+                    <compilerStartOptions>
+                        <compilerStartOption>-pedantic -Wno-long-long -DMM4J_VERSION=0x00010000</compilerStartOption>
+                    </compilerStartOptions>
 
                     <sources>
                         <source>
@@ -45,13 +49,13 @@
                         </source>
                     </sources>
 
-                    <compilerStartOptions>
-                        <compilerStartOption>-pedantic</compilerStartOption>
-                    </compilerStartOptions>
 
                     <linkerStartOptions>
-                        <linkerStartOption>-lm</linkerStartOption>
+                        <linkerStartOption>-lm -shared</linkerStartOption>
                     </linkerStartOptions>
+
+                    <!--<compilerProvider>generic-classic</compilerProvider>-->
+                    <!--<linkerExecutable>gcc</linkerExecutable>-->
                 </configuration>
 
                 <executions>
@@ -59,9 +63,8 @@
                         <id>javah</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <javahOS>linux</javahOS>
                             <javahProvider>default</javahProvider>
-                            <javahOutputFileName>AVNative.h</javahOutputFileName>
+                            <javahOutputFileName>AVNativeBridge.h</javahOutputFileName>
                             <javahClassNames>
                                 <javahClassName>com.alexshabanov.mm4j.av.AVNativeBridge</javahClassName>
                             </javahClassNames>
@@ -75,32 +78,7 @@
             </plugin>
 
             <!-- Native bridge generator - http://mojo.codehaus.org/maven-native/native-maven-plugin/usage.html -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <version>1.0-alpha-7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <javahOS>linux</javahOS>
 
-                    <compilerStartOptions>
-                        <compilerStartOption>-DMM4J_VERSION=0x00010000</compilerStartOption>
-                    </compilerStartOptions>
-
-                    <sources>
-                        <source>
-                            <directory>src/main/native</directory>
-                            <fileNames>
-                                <fileName>AVNativeBridge.c</fileName>
-                            </fileNames>
-                        </source>
-                    </sources>
-
-                    <linkerStartOptions>
-                        <linkerStartOption>-shared</linkerStartOption>
-                    </linkerStartOptions>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
