@@ -12,13 +12,10 @@
  * limitations under the License.
  */
 
-package com.alexshabanov.mm4j;
+package com.alexshabanov.mm4j.core;
 
 /**
- * Entry point.
+ * Represents time with nanosecond precision.
  */
-public final class App {
-    public static void main(String[] args) {
-        System.out.println("Hello, world!");
-    }
+public class Time {
 }
