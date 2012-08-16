@@ -19,7 +19,7 @@ public final class App {
         }
 
         // this line crushes the application
-        //AVNativeBridge.disposeFileContext(context);
+        AVNativeBridge.disposeFileContext(context);
 
         System.out.println("EOF native api");
     }

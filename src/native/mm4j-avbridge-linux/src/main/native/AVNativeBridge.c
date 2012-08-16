@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include <AVNativeBridge.h>
@@ -30,10 +31,11 @@ jbyteArray JNICALL Java_com_alexshabanov_mm4j_av_AVNativeBridge_initInputFileCon
  */
 void JNICALL Java_com_alexshabanov_mm4j_av_AVNativeBridge_disposeFileContext
 (JNIEnv * env, jobject ignored, jbyteArray jcontext) {
-    struct BridgeContext context = { 0 };
+    struct BridgeContext * context;
 
-    /* though the array can be garbage collected by JVM, here we'd take care about it's context */
-    (*env)-> ReleaseByteArrayElements(env, jcontext, (jbyte *) &context, 0);
+    /* The array can be garbage collected by JVM, here we'd take care about it's context */
+    context = (struct BridgeContext *) (*env)->GetByteArrayElements(env, jcontext, 0);
 
     /* now we can dispose context.* contents */
+    fprintf(stderr, "C -> Disposing context{%X, %x, %X}\n", context->foo, context->bar, context->baz);
 }
