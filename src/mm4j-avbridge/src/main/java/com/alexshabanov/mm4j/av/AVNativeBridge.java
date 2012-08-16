@@ -25,9 +25,9 @@ public final class AVNativeBridge {
 
     public static native void disposeFileContext(byte[] arr);
 
-    static {
+    public static void loadDependencies() {
         try {
-            System.loadLibrary("libmm4j-avbridge.so");
+            System.loadLibrary("mm4j-avbridge-native");
         } catch (Throwable e) {
             e.printStackTrace();
             System.exit(1);
