@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.alexshabanov.mm4j</groupId>
+    <artifactId>mm4j-root</artifactId>
+    <version>1.0-ROOT-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>MM4J Project Root</name>
+    <description>Root of the MM4J (Multimedia for Java) project.</description>
+
+    <modules>
+        <module>mm4j-core</module>
+        <module>mm4j-av-native</module>
+    </modules>
+
+    <properties>
+        <mm4j.version>1.0.0-SNAPSHOT</mm4j.version>
+
+        <!-- logging -->
+        <slf4j.version>1.6.1</slf4j.version>
+        <commons-logging.version>1.1.1</commons-logging.version>
+
+
+        <!--  compiler settings -->
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+
+        <!-- encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!-- mm4j libraries -->
+            <dependency>
+                <groupId>com.alexshabanov.mm4j</groupId>
+                <artifactId>mm4j-core</artifactId>
+                <version>${mm4j.version}</version>
+            </dependency>
+
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- No commons logging -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+
+
+            <!-- Test scope -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>3.0</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Clean plugin -->
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <version>2.2</version>
+                </plugin>
+
+                <!-- Dependencies plugin -->
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <version>2.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+

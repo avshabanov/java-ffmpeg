@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alexshabanov.mm4j</groupId>
+        <artifactId>mm4j-root</artifactId>
+        <version>1.0-ROOT-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.alexshabanov.mm4j</groupId>
+    <artifactId>mm4j-core</artifactId>
+    <version>${mm4j.version}</version>
+    <packaging>jar</packaging>
+    <name>MM4J Core</name>
+
+
+    <dependencies>
+        <!-- test scope -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+    </dependencies>
+</project>
