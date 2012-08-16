@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alexshabanov.mm4j</groupId>
+        <artifactId>mm4j-root</artifactId>
+        <version>1.0-ROOT-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.alexshabanov.mm4j</groupId>
+    <artifactId>mm4j-avbridge</artifactId>
+    <version>${mm4j.version}</version>
+    <packaging>jar</packaging>
+    <name>MM4J native bindings for libavformat, libavcodec</name>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alexshabanov.mm4j</groupId>
+            <artifactId>mm4j-core</artifactId>
+        </dependency>
+
+        <!-- test scope -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!--<build>-->
+        <!--<pluginManagement>-->
+            <!--<plugins>-->
+
+                <!--&lt;!&ndash; Native bridge generator - http://mojo.codehaus.org/maven-native/native-maven-plugin/usage.html &ndash;&gt;-->
+                <!--<plugin>-->
+                    <!--<groupId>org.codehaus.mojo</groupId>-->
+                    <!--<artifactId>native-maven-plugin</artifactId>-->
+                    <!--<version>1.0-alpha-7</version>-->
+                    <!--<extensions>true</extensions>-->
+                    <!--<configuration>-->
+                        <!--<javahClassNames>-->
+                            <!--<javahClassName>com.alexshabanov.mm4j.av.AVNativeBridge</javahClassName>-->
+                        <!--</javahClassNames>-->
+
+                        <!--<javahOS>linux</javahOS>-->
+                        <!--<compilerProvider>gcc</compilerProvider>-->
+
+                        <!--<compilerStartOptions>-->
+                            <!--<compilerStartOption>-DMM4J_VERSION=0x00010000</compilerStartOption>-->
+                        <!--</compilerStartOptions>-->
+
+                        <!--<sources>-->
+                            <!--<source>-->
+                                <!--<directory>src/main/native</directory>-->
+                                <!--<fileNames>-->
+                                    <!--<fileName>AVNativeBridge.c</fileName>-->
+                                <!--</fileNames>-->
+                            <!--</source>-->
+                        <!--</sources>-->
+
+                        <!--&lt;!&ndash;&lt;!&ndash; additional system include path &ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;<source>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<directory>...</directory>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</source>&ndash;&gt;-->
+
+                        <!--<linkerStartOptions>-->
+                            <!--<linkerStartOption>-lm</linkerStartOption>-->
+                        <!--</linkerStartOptions>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
+            <!--</plugins>-->
+        <!--</pluginManagement>-->
+    <!--</build>-->
+</project>

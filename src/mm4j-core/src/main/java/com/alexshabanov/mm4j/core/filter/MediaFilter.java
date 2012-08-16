@@ -12,10 +12,19 @@
  * limitations under the License.
  */
 
-package com.alexshabanov.mm4j.core;
+package com.alexshabanov.mm4j.core.filter;
+
+import com.alexshabanov.mm4j.core.MediaTime;
 
 /**
- * Represents time with nanosecond precision.
+ * Represents media filter.
  */
-public class Time {
+public interface MediaFilter {
+    void stop();
+
+    void pause();
+
+    void run(MediaTime time);
+
+    boolean isActive();
 }

@@ -11,7 +11,8 @@
 
     <modules>
         <module>mm4j-core</module>
-        <module>mm4j-av-native</module>
+        <module>mm4j-avbridge</module>
+        <module>native</module>
     </modules>
 
     <properties>
@@ -38,6 +39,11 @@
             <dependency>
                 <groupId>com.alexshabanov.mm4j</groupId>
                 <artifactId>mm4j-core</artifactId>
+                <version>${mm4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alexshabanov.mm4j</groupId>
+                <artifactId>mm4j-avbridge</artifactId>
                 <version>${mm4j.version}</version>
             </dependency>
 

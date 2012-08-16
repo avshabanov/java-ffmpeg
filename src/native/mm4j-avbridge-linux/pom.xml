@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alexshabanov.mm4j</groupId>
+        <artifactId>mm4j-root</artifactId>
+        <version>1.0-ROOT-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.alexshabanov.mm4j</groupId>
+    <artifactId>mm4j-avbridge-linux</artifactId>
+    <version>${mm4j.version}</version>
+    <packaging>so</packaging>
+    <name>libmm4j-avnative.so</name>
+
+    <dependencies>
+        <dependency>
+            <artifactId>mm4j-avbridge</artifactId>
+            <groupId>com.alexshabanov.mm4j</groupId>
+            <version>${mm4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <javahOS>linux</javahOS>
+
+                    <!--<compilerProvider>generic-classic</compilerProvider>-->
+                    <!--<linkerExecutable>gcc</linkerExecutable>-->
+
+                    <sources>
+                        <source>
+                            <directory>src/main/native</directory>
+                            <fileNames>
+                                <fileName>AVNativeBridge.c</fileName>
+                            </fileNames>
+                        </source>
+                    </sources>
+
+                    <compilerStartOptions>
+                        <compilerStartOption>-pedantic</compilerStartOption>
+                    </compilerStartOptions>
+
+                    <linkerStartOptions>
+                        <linkerStartOption>-lm</linkerStartOption>
+                    </linkerStartOptions>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>javah</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <javahOS>linux</javahOS>
+                            <javahProvider>default</javahProvider>
+                            <javahOutputFileName>AVNative.h</javahOutputFileName>
+                            <javahClassNames>
+                                <javahClassName>com.alexshabanov.mm4j.av.AVNativeBridge</javahClassName>
+                            </javahClassNames>
+                        </configuration>
+                        <goals>
+                            <goal>javah</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+            <!-- Native bridge generator - http://mojo.codehaus.org/maven-native/native-maven-plugin/usage.html -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>1.0-alpha-7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <javahOS>linux</javahOS>
+
+                    <compilerStartOptions>
+                        <compilerStartOption>-DMM4J_VERSION=0x00010000</compilerStartOption>
+                    </compilerStartOptions>
+
+                    <sources>
+                        <source>
+                            <directory>src/main/native</directory>
+                            <fileNames>
+                                <fileName>AVNativeBridge.c</fileName>
+                            </fileNames>
+                        </source>
+                    </sources>
+
+                    <linkerStartOptions>
+                        <linkerStartOption>-shared</linkerStartOption>
+                    </linkerStartOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
