@@ -17,5 +17,5 @@ package com.alexshabanov.mm4j.core;
 /**
  * Represents data buffer.
  */
-public interface Buffer {
+public interface MediaBuffer {
 }

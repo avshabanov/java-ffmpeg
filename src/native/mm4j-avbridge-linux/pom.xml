@@ -24,7 +24,8 @@
     </dependencies>
 
     <build>
-        <finalName>libmm4j-avbridge.so</finalName>
+        <!-- TODO: investigate why finalName does not work -->
+        <!--<finalName>libmm4j-avbridge-native.so</finalName>-->
 
         <plugins>
 
@@ -37,7 +38,7 @@
                     <javahOS>linux</javahOS>
 
                     <compilerStartOptions>
-                        <compilerStartOption>-pedantic -Wno-long-long -DMM4J_VERSION=0x00010000</compilerStartOption>
+                        <compilerStartOption>-pedantic -Wno-long-long -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast</compilerStartOption>
                     </compilerStartOptions>
 
                     <sources>
@@ -45,14 +46,20 @@
                             <directory>src/main/native</directory>
                             <fileNames>
                                 <fileName>AVNativeBridge.c</fileName>
+                                <fileName>AvcodecBridge.c</fileName>
                             </fileNames>
                         </source>
                     </sources>
 
 
                     <linkerStartOptions>
-                        <linkerStartOption>-lm -shared</linkerStartOption>
+                        <linkerStartOption>-shared</linkerStartOption>
                     </linkerStartOptions>
+
+                    <linkerEndOptions>
+                        <!-- TODO: pkg-config - - libs libavcodec... -->
+                        <linkerEndOption>-Wl,--no-undefined -pthread -L/usr/local/lib -lavdevice -lavfilter -lpostproc -lavformat -lavcodec -ldl -lva -ljack -lx264 -lvpx -lvorbisenc -lvorbis -ltheoraenc -ltheoradec -logg -lrtmp -lgnutls -lopencore-amrwb -lopencore-amrnb -lmp3lame -lfaac -lz -lrt -lswresample -lswscale -lavutil -lm</linkerEndOption>
+                    </linkerEndOptions>
 
                     <!--<compilerProvider>generic-classic</compilerProvider>-->
                     <!--<linkerExecutable>gcc</linkerExecutable>-->
@@ -64,9 +71,10 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <javahProvider>default</javahProvider>
-                            <javahOutputFileName>AVNativeBridge.h</javahOutputFileName>
+                            <javahOutputFileName>AVNatives.h</javahOutputFileName>
                             <javahClassNames>
                                 <javahClassName>com.alexshabanov.mm4j.av.AVNativeBridge</javahClassName>
+                                <javahClassName>com.alexshabanov.mm4j.av.AvcodecBridge</javahClassName>
                             </javahClassNames>
                         </configuration>
                         <goals>

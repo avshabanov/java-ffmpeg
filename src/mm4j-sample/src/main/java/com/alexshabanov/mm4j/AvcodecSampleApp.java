@@ -12,32 +12,25 @@
  * limitations under the License.
  */
 
-package com.alexshabanov.mm4j.av;
+package com.alexshabanov.mm4j;
 
-import java.nio.Buffer;
+import com.alexshabanov.mm4j.av.AVNativeBridge;
+import com.alexshabanov.mm4j.av.AvcodecBridge;
 
 /**
- * libavcodec/libavformat bridge.
- * TODO: make package-local
+ * To run:
+ * mvn clean compile exec:java -Dexec.mainClass=com.alexshabanov.mm4j.AvcodecSampleApp
+ *
+ * In order to run from Intellij IDEA, set up environment variables
+ * LD_LIBRARY_PATH=/home/alex/opt/lib
  */
-public final class AVNativeBridge {
-    private AVNativeBridge() {}
+public final class AvcodecSampleApp {
 
-    public static native byte[] initInputFileContext(String name);
+    public static void main(String[] args) {
+        System.out.println("Native API invoke sample #2");
 
-    public static native void disposeFileContext(byte[] arr);
+        AVNativeBridge.loadDependencies();
 
-    public static native void writeSomething(Buffer buffer);
-
-
-
-
-    public static void loadDependencies() {
-        try {
-            System.loadLibrary("mm4j-avbridge-native");
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        AvcodecBridge.sampleUsage();
     }
 }

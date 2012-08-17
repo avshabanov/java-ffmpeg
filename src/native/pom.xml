@@ -18,6 +18,13 @@
     </properties>
 
     <profiles>
+        <!--
+            Each mm4j-avbridge-{os} artifact must be basenamed as mm4j-avbridge-native
+            on the native platform, e.g.
+                mm4j-avbridge-native.dll        - on windows,
+                libmm4j-avbridge-native.so      - on linux (*nix?)
+                mm4j-avbridge-native.dylib      - on macos (?)
+        -->
 
         <!--<profile>-->
             <!--<id>win32</id>-->

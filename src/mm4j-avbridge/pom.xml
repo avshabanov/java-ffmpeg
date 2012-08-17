@@ -12,7 +12,8 @@
     <artifactId>mm4j-avbridge</artifactId>
     <version>${mm4j.version}</version>
     <packaging>jar</packaging>
-    <name>MM4J native bindings for libavformat, libavcodec</name>
+    <name>MM4J Native Bindings Interface for AV-libs</name>
+    <description>MM4J Native Bindings Interface for AV-Libraries (libavformat, libavcodec, ...)</description>
 
 
     <dependencies>
