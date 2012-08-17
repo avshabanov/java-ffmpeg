@@ -9,7 +9,7 @@ NOTICE, the name should be libmm4j-avbridge-native.so, it must be loaded as Syst
 In your .bashrc:
     export LD_LIBRARY_PATH=$HOME/opt/lib:$LD_LIBRARY_PATH
 
-Now the library should be accessible by its libmm4j-avbridge-native.so alias
+Now the library should be accessible by its libmm4j-avbridge-native.so alias (don't forget to do . ~/.bashrc in your shell)
 
 
 

@@ -16,9 +16,16 @@ package com.alexshabanov.mm4j.av;
 
 /**
  * Bridge to avcodec functions.
+ * TODO: direct mapping of byte array!
  */
 public final class AvcodecBridge {
     private AvcodecBridge() {}
 
-    //private static native byte[] find
+    private static native long findEncoder(String name);
+
+    private static native long allocAudioContext(int bitRate, int sampleRate, int channels);
+
+    private static native int codecOpen(long contextPtr, long codecPtr);
+
+    private static native byte[] getContextBuffer(long contextPtr);
 }
