@@ -19,13 +19,23 @@ import com.alexshabanov.mm4j.util.InplaceByteOutputStream;
 import java.io.*;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
 import java.nio.channels.FileChannel;
 
 /**
  * Bridge to avcodec functions.
  */
-public final class AvcodecBridge {
-    private AvcodecBridge() {}
+public final class AVBridge {
+    private AVBridge() {}
+
+    public static void loadDependencies() {
+        try {
+            System.loadLibrary("mm4j-avbridge-native");
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
     public static final int CODEC_ID_MP3 = 100;
     //public static final int CODEC_ID_X264 = 200;
@@ -64,6 +74,7 @@ public final class AvcodecBridge {
     // int encodedSize = avcodec_encode_audio(context, outbuf, outbuf_size, samples);
     public static native int encodeAudio(long contextPtr, Buffer outputBuffer, int outputBufferSize, Buffer samples);
 
+    public static native int encodeAlt(Buffer input, Buffer output);
 
 
     //
@@ -86,8 +97,6 @@ public final class AvcodecBridge {
 
 
     public static void sampleUsage() {
-        initialize();
-
         long contextPtr = 0;
 
         final int bitRate = 64000; // 64kb/s
@@ -154,19 +163,14 @@ public final class AvcodecBridge {
         double t = 0.0;
         final double tincr = 2.0 * Math.PI * 440.0 / context.sampleRate;
 
-        final byte[] twoShorts = new byte[SIZEOF_SHORT * context.channels];
-        final InplaceByteOutputStream inplaceByteOutputStream = new InplaceByteOutputStream(twoShorts);
-        final DataOutputStream dataOutputStream = new DataOutputStream(inplaceByteOutputStream);
-
         for (int i = 0; i < 2000; ++i) {
+
             for (int j = 0; j < context.frameSize; ++j) {
                 final short s = (short) (Math.sin(t) * 10000.0);
-                for (int c = 0; c < context.channels; ++c) {
-                    dataOutputStream.writeShort(s);
-                }
+                context.input
+                        .putShort(s)
+                        .putShort(s);
 
-                context.input.put(twoShorts);
-                inplaceByteOutputStream.reset();
                 t += tincr;
             }
 
@@ -176,12 +180,15 @@ public final class AvcodecBridge {
             // encode input to output
             final int outSize = encodeAudio(context.contextPtr,
                     context.output, context.output.capacity(), context.input);
-            if (outSize <= 0) {
+            if (outSize < 0) {
                 System.out.println("!!!ERROR WHILE ENCODING!!!");
                 return;
             }
 
-            channel.write((ByteBuffer) context.output.slice().limit(outSize));
+            // outSize == 0 means that codec caches encoded data
+            if (outSize > 0) {
+                channel.write((ByteBuffer) context.output.slice().limit(outSize));
+            }
         }
     }
 

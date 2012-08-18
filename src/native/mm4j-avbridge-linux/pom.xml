@@ -29,6 +29,7 @@
 
         <plugins>
 
+            <!-- native builder -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native-maven-plugin</artifactId>
@@ -38,15 +39,14 @@
                     <javahOS>linux</javahOS>
 
                     <compilerStartOptions>
-                        <compilerStartOption>-pedantic -Wno-long-long -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast</compilerStartOption>
+                        <compilerStartOption>-std=c99 -pedantic -Wno-long-long -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast</compilerStartOption>
                     </compilerStartOptions>
 
                     <sources>
                         <source>
                             <directory>src/main/native</directory>
                             <fileNames>
-                                <fileName>AVNativeBridge.c</fileName>
-                                <fileName>AvcodecBridge.c</fileName>
+                                <fileName>AVBridge.c</fileName>
                             </fileNames>
                         </source>
                     </sources>
@@ -71,10 +71,9 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <javahProvider>default</javahProvider>
-                            <javahOutputFileName>AVNatives.h</javahOutputFileName>
+                            <javahOutputFileName>AVBridge.h</javahOutputFileName>
                             <javahClassNames>
-                                <javahClassName>com.alexshabanov.mm4j.av.AVNativeBridge</javahClassName>
-                                <javahClassName>com.alexshabanov.mm4j.av.AvcodecBridge</javahClassName>
+                                <javahClassName>com.alexshabanov.mm4j.av.AVBridge</javahClassName>
                             </javahClassNames>
                         </configuration>
                         <goals>
@@ -82,10 +81,7 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
-
-            <!-- Native bridge generator - http://mojo.codehaus.org/maven-native/native-maven-plugin/usage.html -->
 
         </plugins>
     </build>

@@ -15,4 +15,4 @@ Now the library should be accessible by its libmm4j-avbridge-native.so alias (do
 
 
 Launch application:
-mvn clean compile exec:java -Dexec.mainClass=com.alexshabanov.mm4j.App
+mvn clean compile exec:java -Dexec.mainClass=com.alexshabanov.mm4j.AVBridgeSampleApp
