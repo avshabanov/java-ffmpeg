@@ -41,7 +41,7 @@
 
 
 /**
- *
+ * Finds avcodec-specific codec ID.
  */
 static int toAvcodecCodecId(int javaCodecId) {
     switch (javaCodecId) {
@@ -198,6 +198,7 @@ jint JNICALL Java_com_alexshabanov_mm4j_av_AVBridge_encodeAudio
     return encodedBytes;
 }
 
+#if 0
 jint JNICALL Java_com_alexshabanov_mm4j_av_AVBridge_encodeAlt
 (JNIEnv * env, jclass ignored, jobject inputBuffer, jobject outputBuffer) {
     jbyte * outbuf = (*env)->GetDirectBufferAddress(env, outputBuffer);
@@ -234,3 +235,4 @@ jint JNICALL Java_com_alexshabanov_mm4j_av_AVBridge_encodeAlt
     avcodec_close(context);
     av_free(context);
 }
+#endif

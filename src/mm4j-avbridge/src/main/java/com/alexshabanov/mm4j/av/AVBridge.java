@@ -14,12 +14,10 @@
 
 package com.alexshabanov.mm4j.av;
 
-import com.alexshabanov.mm4j.util.InplaceByteOutputStream;
-
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.ShortBuffer;
 import java.nio.channels.FileChannel;
 
 /**
